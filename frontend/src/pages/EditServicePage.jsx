@@ -32,7 +32,7 @@ const EditServicePage = () => {
 
     const fetchService = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/service/${id}`);
+        const res = await axios.get(`https://guidecircle-b.onrender.com/api/service/${id}`);
         const service = res.data; // Assuming response is the service object directly
 
         setFormData({
@@ -116,7 +116,7 @@ const EditServicePage = () => {
       };
 
       const response = await axios.put(
-        `http://localhost:5000/api/service/update/${id}`,
+        `https://guidecircle-b.onrender.com/api/service/update/${id}`,
         payload,
         {
           headers: { Authorization: `Bearer ${token}` },

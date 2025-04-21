@@ -17,7 +17,7 @@ const ContactUs = () => {
     setStatus("sending");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/contact", formData);
+      const res = await axios.post("https://guidecircle-b.onrender.com/api/contact", formData);
       if (res.data.success) {
         setStatus("success");
         setFormData({ name: "", email: "", message: "" });

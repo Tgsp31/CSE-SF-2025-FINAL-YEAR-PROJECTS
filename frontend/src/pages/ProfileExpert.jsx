@@ -48,7 +48,7 @@ const ProfileExpert = () => {
 
     const fetchExpert = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/expert/${id}`, {
+        const res = await axios.get(`https://guidecircle-b.onrender.com/api/expert/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -74,7 +74,7 @@ const ProfileExpert = () => {
     if (!window.confirm("Are you sure you want to delete this service?")) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/service/delete/${serviceId}`, {
+      await axios.delete(`https://guidecircle-b.onrender.com/api/service/delete/${serviceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setServices((prev) => prev.filter((s) => s._id !== serviceId));
@@ -101,7 +101,7 @@ const ProfileExpert = () => {
       if (editPhoto) formData.append("photo", editPhoto);
 
       const res = await axios.put(
-        `http://localhost:5000/api/expert/update-profile`,
+        `https://guidecircle-b.onrender.com/api/expert/update-profile`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );

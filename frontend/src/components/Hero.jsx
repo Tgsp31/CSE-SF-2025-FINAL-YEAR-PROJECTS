@@ -58,8 +58,8 @@ const Hero = () => {
     const fetchServices = async () => {
       try {
         const url = searchQuery
-          ? `http://localhost:5000/api/service/all?search=${encodeURIComponent(searchQuery)}`
-          : "http://localhost:5000/api/service/all";
+          ? `https://guidecircle-b.onrender.com/api/service/all?search=${encodeURIComponent(searchQuery)}`
+          : "https://guidecircle-b.onrender.com/api/service/all";
         const res = await axios.get(url);
         setServices(res.data || []);
         setCurrentPage(1);

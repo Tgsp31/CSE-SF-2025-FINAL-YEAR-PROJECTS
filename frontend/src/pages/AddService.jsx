@@ -87,7 +87,7 @@ const AddService = () => {
         duration,
         timeSlots: availableTimes,
       };
-      const response = await axios.post("http://localhost:5000/api/service/add", payload, {
+      const response = await axios.post("https://guidecircle-b.onrender.com/api/service/add", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

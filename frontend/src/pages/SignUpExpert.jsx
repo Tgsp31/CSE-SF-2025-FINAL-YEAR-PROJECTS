@@ -41,7 +41,7 @@ const SignUpExpert = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/api/expert/signup", formData);
+      const res = await axios.post("https://guidecircle-b.onrender.com/api/expert/signup", formData);
       localStorage.setItem("user", JSON.stringify({ ...res.data.user, type: "expert" }));
       localStorage.setItem("token", res.data.token);
       window.dispatchEvent(new Event("userChanged"));

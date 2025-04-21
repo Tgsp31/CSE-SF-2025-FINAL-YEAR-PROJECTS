@@ -35,7 +35,7 @@ const ServiceDetailsPage = () => {
 
   const fetchService = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/service/${id}`);
+      const res = await axios.get(`https://guidecircle-b.onrender.com/api/service/${id}`);
       setService(res.data);
       const myReview = res.data.reviews.find((r) => r.expert?._id === user._id);
       setUserReview(myReview || null);
@@ -53,7 +53,7 @@ const ServiceDetailsPage = () => {
   const handleReviewSubmit = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/api/review/add",
+        "https://guidecircle-b.onrender.com/api/review/add",
         {
           serviceId: id,
           rating: reviewRating,
@@ -75,7 +75,7 @@ const ServiceDetailsPage = () => {
 
   const handleDeleteReview = async () => {
     try {
-      await axios.delete(`http://localhost:5000/api/review/delete/${userReview._id}`, {
+      await axios.delete(`https://guidecircle-b.onrender.com/api/review/delete/${userReview._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

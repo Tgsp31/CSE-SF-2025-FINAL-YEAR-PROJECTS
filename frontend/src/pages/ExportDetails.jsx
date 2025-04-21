@@ -36,7 +36,7 @@ const ExportDetails = () => {
   useEffect(() => {
     const fetchExpertDetails = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/expert/${id}`);
+        const res = await axios.get(`https://guidecircle-b.onrender.com/api/expert/${id}`);
         setExpert(res.data.user);
       } catch (err) {
         setError("Failed to load expert details.");

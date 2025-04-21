@@ -40,7 +40,7 @@ const BookNowPage = () => {
     useEffect(() => {
         const fetchService = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/api/service/${id}`);
+                const res = await axios.get(`https://guidecircle-b.onrender.com/api/service/${id}`);
                 setService(res.data);
             } catch (err) {
                 console.error("Failed to fetch service details:", err);
@@ -91,7 +91,7 @@ const BookNowPage = () => {
                 message: userMessage,
             };
 
-            await axios.post("http://localhost:5000/api/booking/confirm", payload, {
+            await axios.post("https://guidecircle-b.onrender.com/api/booking/confirm", payload, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
