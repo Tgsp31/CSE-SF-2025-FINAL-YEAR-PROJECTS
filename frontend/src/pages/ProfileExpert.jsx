@@ -19,6 +19,8 @@ const ProfileExpert = () => {
   const [editAboutMe, setEditAboutMe] = useState("");
   const [editPhoto, setEditPhoto] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const token = localStorage.getItem("token");
 
@@ -156,63 +158,115 @@ const ProfileExpert = () => {
         </div>
       </div>
 
-      {/* Edit Modal */}
+
+
+
+
       {showEdit && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-4">
-          <div className="  p-6 max-w-md w-full  relative rounded-2xl overflow-hidden shadow-lg border border-gray-300 hover:shadow-2xl transition bg-white">
-            <button
-              onClick={() => setShowEdit(false)}
-              className="absolute top-2 right-2 text-red-500 text-xl font-bold"
-            >
-              ✕
-            </button>
-            <h3 className="text-xl font-bold text-[#1B4242] mb-4 text-center">Edit Profile</h3>
+  <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-4">
+    <div className="p-6 max-w-md w-full relative rounded-2xl overflow-hidden shadow-lg border border-gray-300 hover:shadow-2xl transition bg-white">
+      <button
+        onClick={() => setShowEdit(false)}
+        className="absolute top-2 right-2 text-red-500 text-xl font-bold"
+      >
+        ✕
+      </button>
+      <h3 className="text-xl font-bold text-[#1B4242] mb-4 text-center">Edit Profile</h3>
 
-            {/* Form Fields */}
-            {[
-              { label: "Name", type: "text", state: editName, setState: setEditName },
-              { label: "Email", type: "email", state: editEmail, setState: setEditEmail },
-              { label: "Password", type: "password", state: editPassword, setState: setEditPassword },
-            ].map(({ label, type, state, setState }, idx) => (
-              <div key={idx} className="mb-3">
-                <label className="block mb-1 text-sm font-semibold text-gray-600">{label}</label>
-                <input
-                  type={type}
-                  value={state}
-                  onChange={(e) => setState(e.target.value)}
-                  placeholder={label}
-                  className="w-full p-2 border rounded"
-                />
-              </div>
-            ))}
+      {/* Validation Errors */}
+      <div className="text-sm text-red-500 space-y-1 mb-3">
+        {!editEmail && <p>Email is required.</p>}
+        {editEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editEmail) && <p>Invalid email format.</p>}
+        {!editPassword && <p>Password is required.</p>}
+        {editPassword && editPassword.length < 6 && <p>Password must be at least 6 characters.</p>}
+      </div>
 
-            <label className="block mb-1 text-sm font-semibold text-gray-600">About Me</label>
-            <textarea
-              value={editAboutMe}
-              onChange={(e) => setEditAboutMe(e.target.value)}
-              placeholder="Brief description..."
-              className="w-full p-2 border rounded mb-3"
-            />
+      {/* Name */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-semibold text-gray-600">Name</label>
+        <input
+          type="text"
+          value={editName}
+          onChange={(e) => setEditName(e.target.value)}
+          placeholder="Name"
+          className="w-full p-2 border rounded"
+        />
+      </div>
 
-            <label className="block mb-1 text-sm font-semibold text-gray-600">Photo (Optional)</label>
-            <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-2 border rounded mb-3" />
-            {preview && (
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-[#1B4242]"
-              />
-            )}
+      {/* Email */}
+      <div className="mb-3">
+        <label className="block mb-1 text-sm font-semibold text-gray-600">Email</label>
+        <input
+          type="email"
+          value={editEmail}
+          onChange={(e) => setEditEmail(e.target.value)}
+          placeholder="Email"
+          className="w-full p-2 border rounded"
+        />
+      </div>
 
-            <button
-              onClick={handleUpdateProfile}
-              className="bg-[#1B4242] text-white px-6 py-2 rounded-md w-full hover:bg-[#092635] transition"
-            >
-              Submit
-            </button>
-          </div>
-        </div>
+      {/* Password + Eye Toggle */}
+      <div className="mb-3 relative">
+        <label className="block mb-1 text-sm font-semibold text-gray-600">Password</label>
+        <input
+          type={showPassword ? "text" : "password"}
+          value={editPassword}
+          onChange={(e) => setEditPassword(e.target.value)}
+          placeholder="Password"
+          className="w-full p-2 border rounded pr-10"
+        />
+        <span
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute top-8 right-3 cursor-pointer text-gray-600"
+        >
+          {showPassword ? "🙈" : "👁️"}
+        </span>
+      </div>
+
+      {/* About Me */}
+      <label className="block mb-1 text-sm font-semibold text-gray-600">About Me</label>
+      <textarea
+        value={editAboutMe}
+        onChange={(e) => setEditAboutMe(e.target.value)}
+        placeholder="Brief description..."
+        className="w-full p-2 border rounded mb-3"
+      />
+
+      {/* Image Upload */}
+      <label className="block mb-1 text-sm font-semibold text-gray-600">Photo (Optional)</label>
+      <input type="file" accept="image/*" onChange={handleImageChange} className="w-full p-2 border rounded mb-3" />
+      {preview && (
+        <img
+          src={preview}
+          alt="Preview"
+          className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-4 border-[#1B4242]"
+        />
       )}
+
+      {/* Submit Button */}
+      <button
+        onClick={() => {
+          if (
+            editEmail &&
+            /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editEmail) &&
+            editPassword &&
+            editPassword.length >= 6
+          ) {
+            handleUpdateProfile();
+          }
+        }}
+        className="bg-[#1B4242] text-white px-6 py-2 rounded-md w-full hover:bg-[#092635] transition"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+)}
+
+
+
+
+
 
       {/* Services */}
       <h3 className={`text-2xl font-bold mb-6 text-center ${services.length > 0 ? "text-[#1B4242]" : "text-gray-600"}`}>

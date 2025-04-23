@@ -50,7 +50,8 @@ const Navbar = () => {
 
   return (
     <nav className="w-full bg-[#1B4242] shadow-md text-white z-50 relative">
-      <div className="max-w-7xl mx-auto px-4 py-3 flex flex-wrap sm:flex-nowrap items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex flex-nowrap items-center justify-between gap-2 overflow-x-auto">
+
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={companyLogo} alt="Logo" className="w-10 rounded-md" />
